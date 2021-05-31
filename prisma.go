@@ -15,7 +15,6 @@ import (
 	_ "github.com/jensneuse/goprisma/lib"
 	_ "github.com/jensneuse/goprisma/lib/darwin"
 	_ "github.com/jensneuse/goprisma/lib/darwin-aarch64"
-	_ "github.com/jensneuse/goprisma/lib/darwin-x86_64"
 	_ "github.com/jensneuse/goprisma/lib/linux"
 	_ "github.com/jensneuse/goprisma/lib/windows"
 )
