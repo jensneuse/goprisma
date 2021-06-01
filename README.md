@@ -14,7 +14,7 @@ Supported Databases:
 ### go get
 
 ```shell
-go get github.com/jensneuse/goprisma/pkg/prisma
+go get github.com/jensneuse/goprisma
 ```
 
 ### Introspect a database
@@ -70,7 +70,7 @@ You can find the benchmark in the prisma package tests and run it yourself.
 ## What architectures are supported?
 
 - [x] darwin x86_64
-- [ ] darwin aarch64 (needs verification)
+- [x] darwin aarch64
 - [ ] windows x86_64 (needs verification)
 - [ ] linux x86_64 (needs verification)
 
