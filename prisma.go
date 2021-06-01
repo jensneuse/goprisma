@@ -8,6 +8,7 @@ package goprisma
 import "C"
 import (
 	"errors"
+	"fmt"
 	"unsafe"
 
 	// do not remove these side effect imports
@@ -57,6 +58,9 @@ func NewEngine(schema string) (*Engine, error) {
 	inputSchemaCstring := C.CString(schema)
 	defer C.free(unsafe.Pointer(inputSchemaCstring))
 	ptr := C.prisma_new(inputSchemaCstring)
+	if ptr == nil {
+		return nil,fmt.Errorf("unable to create engine")
+	}
 	return &Engine{
 		ptr: ptr,
 	}, nil
@@ -65,17 +69,23 @@ func NewEngine(schema string) (*Engine, error) {
 // Execute takes a JSON encoded GraphQL query and executes it using the Rust prisma engine
 // make sure to add an empty variables object to the query, otherwise the request will fail
 // that said, variables are not supported by prisma, all values must be inlined into the query
-func (e *Engine) Execute(query string) string {
+func (e *Engine) Execute(query string) (string,error) {
+	if e == nil || e.ptr == nil {
+		return "",fmt.Errorf("engine uninitialized")
+	}
 	queryCString := C.CString(query)
 	defer C.free(unsafe.Pointer(queryCString))
 	responseCString := C.prisma_execute(e.ptr, queryCString)
 	defer C.free(unsafe.Pointer(responseCString))
-	return C.GoString(responseCString)
+	return C.GoString(responseCString),nil
 }
 
 // Close disconnects the Rust prisma engine from the database and cleans up all structs and pointers on both sides of the bridge.
 // If you forget to call Close before the Engine struct goes out of scope, you have a memory leak!
 func (e *Engine) Close() {
+	if e == nil || e.ptr == nil {
+		return
+	}
 	C.free_prisma(e.ptr)
 	e.ptr = nil
 }

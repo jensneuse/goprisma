@@ -3,3 +3,4 @@ lib/libgoprisma.dylib
 lib/goprisma/target
 .DS_Store
 main
+Dockerfile

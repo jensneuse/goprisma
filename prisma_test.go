@@ -39,11 +39,11 @@ func TestNewEngine(t *testing.T) {
 	engine, err := NewEngine(schema)
 	assert.NoError(t, err)
 	assert.NotNil(t, engine)
-	assert.NotNil(t, engine.ptr)
 
 	defer engine.Close()
 
-	response := engine.Execute(query)
+	response,err := engine.Execute(query)
+	assert.NoError(t, err)
 	if strings.Contains(response, "errors") {
 		t.Fatal(response)
 	}
@@ -72,7 +72,10 @@ func BenchmarkEngine_Execute(b *testing.B) {
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			response := engine.Execute(query)
+			response,err := engine.Execute(query)
+			if err != nil {
+				b.Fatal(err)
+			}
 			if strings.Contains(response, "errors") {
 				b.Fatal(response)
 			}
