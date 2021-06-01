@@ -71,8 +71,8 @@ You can find the benchmark in the prisma package tests and run it yourself.
 
 - [x] darwin x86_64
 - [x] darwin aarch64
+- [x] linux x86_64
 - [ ] windows x86_64 (needs verification)
-- [ ] linux x86_64 (needs verification)
 
 Other targets can be added.
 
