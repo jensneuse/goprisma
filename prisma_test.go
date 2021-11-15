@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	queryString = `postgresql://admin:admin@localhost:54321/example?schema=public&connection_limit=20&pool_timeout=5`
+	queryString = `postgresql://admin:admin@localhost:54322/example?schema=public&connection_limit=20&pool_timeout=5`
 )
 
 func TestIntrospect(t *testing.T) {
