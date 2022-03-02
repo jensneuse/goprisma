@@ -8,8 +8,25 @@ Supported Databases:
 - [x] SQLite
 - [x] PostgreSQL
 - [x] MySQL
-- [ ] MongoDB
-- [ ] MS SQL Server
+- [x] MongoDB
+- [x] MS SQL Server
+- [ ] CockroachDB
+
+## How to use this in production?
+
+It might be obvious, but I just want to make it clear that you should NOT publicly expose your database with this library.
+This is only intended for use cases where the GraphQL API is shielded by some other component.
+
+We're using goprisma internally in WunderGraph which adds such a shielding layer,
+with authentication, authorization, role-based access control, caching and more.
+
+Additionally, WunderGraph comes with a TypeScript SDK,
+so you can introspect multiple databases as well as GraphQL and REST APIs and join them together.
+
+Check out [WunderGraph if you're interested in a production-grade solution](https://wundergraph.com).
+Here's a link to the [docs on all supported DataSources](https://wundergraph.com/docs/overview/datasources/overview).
+
+Otherwise, feel free to use this as a go package in your own projects.
 
 ### go get
 
@@ -107,8 +124,4 @@ Ideally, this github action would fetch the latest stable of prisma-engines, com
 A blueprint how to do this can be found here: https://github.com/rogchap/v8go/blob/master/.github/workflows/v8build.yml
 
 If you're interested in adding this, please open a PR.
-
-## Considerations
-
-It might be obvious, but I just want to make it clear that you should NOT publicly expose your database with this library.
-This is only intended for use cases where the GraphQL API is shielded by some other component.
+That said, you can always build the Rust part yourself to increase the level of trust.
